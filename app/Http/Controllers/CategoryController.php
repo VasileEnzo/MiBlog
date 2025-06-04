@@ -11,12 +11,30 @@ class CategoryController extends Controller
     $posts = Post::all(); 
     return view('category.index', ['posts' => $posts]); 
 }
-
-    public function getShow($id)
+public function update(Request $request, Post $post)
 {
-    $post = Post::findOrFail($id); 
-    return view('category.show', ['post' => $post]); 
+    $request->validate([
+        'title' => 'required|string|max:255',
+        'poster' => 'required|string|email',
+        'content' => 'required|string',
+        'habilitated' => 'nullable'
+    ]);
+
+    $post->update([
+        'title' => $request->input('title'),
+        'poster' => $request->input('poster'),
+        'content' => $request->input('content'),
+        'habilitated' => $request->has('habilitated'),
+    ]);
+
+    return redirect()->route('category.index');
 }
+
+    public function show(Post $post)
+{
+    return view('category.show', ['post' => $post]);
+}
+
 
     public function getCreate()
     {
@@ -41,5 +59,24 @@ public function postStore(Request $request)
     $post->save();
 
     return redirect('/');
+
+}
+public function store(Request $request)
+{
+    $request->validate([
+        'title' => 'required|string|max:255',
+        'poster' => 'required|string|email',
+        'content' => 'required|string',
+        'habilitated' => 'nullable'
+    ]);
+
+    Post::create([
+        'title' => $request->input('title'),
+        'poster' => $request->input('poster'),
+        'content' => $request->input('content'),
+        'habilitated' => $request->has('habilitated'),
+    ]);
+
+    return redirect()->route('category.index');
 }
 }

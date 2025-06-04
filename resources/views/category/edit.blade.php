@@ -3,7 +3,8 @@
 @section('content')
     <h1>Editar Post</h1>
 
-<form method="POST" action="{{ url('category/update/' . $post->id) }}">
+<form method="POST" action="{{ route('category.update', $post->id) }}">
+
     @csrf
     @method('PUT')
 
