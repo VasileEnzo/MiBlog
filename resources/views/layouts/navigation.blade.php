@@ -11,20 +11,16 @@
                 </div>
 
                 <!-- Navigation Links -->
-                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                        {{ __('Inicio') }}
-                    </x-nav-link>
+                @auth
+                                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link :href="url('/category/create')" :active="request()->is('category/create')">
-    {{ __('Nueva Categoría') }}
-</x-nav-link>
-<x-nav-link :href="route('category.index')" :active="request()->routeIs('category.index')">
-    {{ __('Posts') }}
-</x-nav-link>
-
-
-
+                        {{ __('Crear Post') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('category.index')" :active="request()->routeIs('category.index')">
+                        {{ __('Tus Posts') }}
+                    </x-nav-link>
                 </div>
+                @endauth
             </div>
 
             <!-- Settings Dropdown -->
@@ -44,7 +40,8 @@
                         </button>
                     </x-slot>
 
-                    <x-slot name="content">
+                    @guest
+                                            <x-slot name="content">
                         <x-dropdown-link :href="route('profile.edit')">
                             {{ __('Profile') }}
                         </x-dropdown-link>
@@ -60,6 +57,7 @@
                             </x-dropdown-link>
                         </form>
                     </x-slot>
+                    @endguest
                 </x-dropdown>
             </div>
 
@@ -91,7 +89,7 @@
     <div class="font-medium text-sm text-gray-500">{{ Auth::user()->email }}</div>
 @endauth
             </div>
-
+            @guest
             <div class="mt-3 space-y-1">
                 <x-responsive-nav-link :href="route('profile.edit')">
                     {{ __('Profile') }}
@@ -108,6 +106,7 @@
                     </x-responsive-nav-link>
                 </form>
             </div>
+            @endguest
         </div>
     </div>
 </nav>
