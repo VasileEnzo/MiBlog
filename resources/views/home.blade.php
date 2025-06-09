@@ -24,7 +24,7 @@
                         {{ $post->title }}
                     </a>
 
-                    <p class="text-gray-700 dark:text-gray-300 mt-2">{!! nl2br(e(Str::limit($post->content, 150))) !!}</p>
+                    <p class="text-gray-700 dark:text-gray-300 mt-2">{!! nl2br(e(Str::limit($post->content, 250))) !!}</p>
                     <div class="flex justify-between items-center mt-4 text-sm text-gray-500">
                         <span>Publicado por: {{ $post->user->name ?? 'Anónimo' }}</span>
 

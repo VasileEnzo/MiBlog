@@ -30,21 +30,7 @@ class PostController extends Controller
     return view('category.create', compact('categories'));
 }
 
-    public function store(Request $request)
-    {
-        $validated = $request->validate([
-            'title' => 'required|string|max:255',
-            'description' => 'nullable|string',
-            'habilitated' => 'required|boolean',
-        ]);
-
-        $validated['poster'] = auth()->user()->email;
-
-        Post::create($validated);
-
-        return redirect()->route('category.index');
-    }
-
+    
     public function edit(Post $post)
     {
         return view('category.edit', compact('post'));
