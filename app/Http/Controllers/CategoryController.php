@@ -75,6 +75,7 @@ public function store(Request $request)
         'poster' => $request->input('poster'),
         'content' => $request->input('content'),
         'habilitated' => $request->has('habilitated'),
+        'user_id' => auth()->id(),
     ]);
 
     return redirect()->route('category.index');
