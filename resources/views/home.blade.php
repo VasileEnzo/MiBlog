@@ -24,9 +24,10 @@
                         {{ $post->title }}
                     </a>
 
-                    <p class="text-gray-700 dark:text-gray-300 mt-2">{{ $post->content }}</p>
+                    <p class="text-gray-700 dark:text-gray-300 mt-2">{!! nl2br(e(Str::limit($post->content, 150))) !!}</p>
                     <div class="flex justify-between items-center mt-4 text-sm text-gray-500">
-                        <span>Publicado por: {{ $post->name ?? 'Anónimo' }}</span>
+                        <span>Publicado por: {{ $post->user->name ?? 'Anónimo' }}</span>
+
                         <span>{{ $post->created_at->format('d/m/Y') }}</span>
                     </div>
                 </div>

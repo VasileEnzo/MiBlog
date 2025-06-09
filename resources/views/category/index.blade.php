@@ -31,7 +31,7 @@
                     Categoría: {{ $post->category?->name ?? 'Sin categoría' }}
                 </p>
 
-                <p class="text-gray-700 dark:text-gray-300 mt-2">{{ $post->content }}</p>
+                <p class="text-gray-700 dark:text-gray-300 mt-2">{!! nl2br(e(Str::limit($post->content, 150))) !!}</p>
 
                 <div class="flex justify-between items-center mt-4 text-sm">
                     <a href="{{ route('category.edit', $post->id) }}" class="text-blue-500 hover:underline">Editar</a>

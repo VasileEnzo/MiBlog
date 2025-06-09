@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Post;
+use App\Models\Category;
+
 class CategoryController extends Controller
 {
     public function getIndex(Request $request)
@@ -32,7 +34,8 @@ public function update(Request $request, Post $post)
         'title' => $request->input('title'),
         'poster' => $request->input('poster'),
         'content' => $request->input('content'),
-        'habilitated' => $request->has('habilitated'),
+        'habilitated' => $request->input('habilitated') == 1,
+
     ]);
 
     return redirect()->route('category.index');

@@ -7,7 +7,9 @@ use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('welcome-public');
+    return auth()->check()
+        ? redirect()->route('home')
+        : view('welcome-public');
 })->name('welcome.public');
 
 
