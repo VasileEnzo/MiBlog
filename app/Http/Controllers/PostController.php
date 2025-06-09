@@ -19,7 +19,7 @@ class PostController extends Controller
     }
 
     $posts = $query->get();
-    $categories = Category::all(); // para el filtro en la vista
+    $categories = Category::all(); 
 
     return view('category.index', compact('posts', 'categories'));
 }

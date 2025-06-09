@@ -33,6 +33,7 @@ Route::middleware('auth')->group(function () {
     Route::put('/category/{post}', [CategoryController::class, 'update'])->name('category.update');
     Route::delete('/category/{post}', [PostController::class, 'destroy'])->name('category.destroy');
     Route::get('/category/show/{post}', [CategoryController::class, 'show'])->name('category.show');
+    
 
 });
 

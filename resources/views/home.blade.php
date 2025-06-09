@@ -17,22 +17,36 @@
     </div>
         <div class="all-center mt-10 text-white">
                 <h1 class="text-3xl font-bold mb-4 text-center text-white">¡Nuestros Post!</h1>
-           @foreach ($posts as $post)
-            @if ($post->habilitated == 1)
-                <div class="bg-gray-100 dark:bg-gray-800 p-6 rounded-xl shadow-md">
-                    <a href="{{ route('category.show', $post->id) }}" class="text-xl font-semibold text-blue-600 dark:text-blue-400 hover:underline">
-                        {{ $post->title }}
-                    </a>
+                {{-- Filtro de Categorías --}}
+<form method="GET" action="{{ route('home') }}" class="mb-6">
+    <label for="category_id" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Filtrar por categoría:</label>
+    <select name="category_id" id="category_id" onchange="this.form.submit()"
+        class="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-900 dark:text-white">
+        <option value="">Todas las categorías</option>
+        @foreach ($categories as $category)
+            <option value="{{ $category->id }}" {{ request('category_id') == $category->id ? 'selected' : '' }}>
+                {{ $category->name }}
+            </option>
+        @endforeach
+    </select>
+</form>
 
-                    <p class="text-gray-700 dark:text-gray-300 mt-2">{!! nl2br(e(Str::limit($post->content, 250))) !!}</p>
-                    <div class="flex justify-between items-center mt-4 text-sm text-gray-500">
-                        <span>Publicado por: {{ $post->user->name ?? 'Anónimo' }}</span>
+       @foreach ($posts as $post)
+    @if ($post->habilitated == 1)
+        <div class="bg-gray-100 dark:bg-gray-800 p-6 rounded-xl shadow-md mb-6">
+            <a href="{{ route('category.show', $post->id) }}" class="text-xl font-semibold text-blue-600 dark:text-blue-400 hover:underline">
+                {{ $post->title }}
+            </a>
 
-                        <span>{{ $post->created_at->format('d/m/Y') }}</span>
-                    </div>
-                </div>
-            @endif
+            <p class="text-gray-700 dark:text-gray-300 mt-2">{!! nl2br(e(Str::limit($post->content, 250))) !!}</p>
+            <div class="flex justify-between items-center mt-4 text-sm text-gray-500">
+                <span>Publicado por: {{ $post->user->name ?? 'Anónimo' }}</span>
+                <span>{{ $post->created_at->format('d/m/Y') }}</span>
+            </div>
+        </div>
+    @endif
 @endforeach
+
         </div>
 
 </div>
