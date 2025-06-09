@@ -43,18 +43,23 @@
                 />
             </div>
 
-            <div class="mb-6 flex items-center">
-                <input 
-                    id="habilitated" 
-                    type="checkbox" 
-                    name="habilitated" 
-                    class="h-5 w-5 text-blue-600 focus:ring-blue-500 border-gray-300 rounded" 
-                    {{ $post->habilitated ? 'checked' : '' }}
-                />
-                <label for="habilitated" class="ml-2 block text-gray-900 dark:text-gray-300 font-semibold">
-                    Habilitado
-                </label>
-            </div>
+                <div class="mb-6 flex items-center">
+                   
+                    <input type="hidden" name="habilitated" value="0" />
+
+                    <input 
+                        id="habilitated" 
+                        type="checkbox" 
+                        name="habilitated" 
+                        value="1" 
+                        class="h-5 w-5 text-blue-600 focus:ring-blue-500 border-gray-300 rounded" 
+                        {{ $post->habilitated ? 'checked' : '' }}
+                    />
+                    <label for="habilitated" class="ml-2 block text-gray-900 dark:text-gray-300 font-semibold">
+                        Habilitado
+                    </label>
+                </div>
+
 
             <button 
                 type="submit" 
