@@ -30,6 +30,16 @@
             <textarea name="content" id="content" rows="5" required
                 class="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
         </div>
+        <div>
+    <label for="category_id" class="block text-sm font-medium text-white mb-1">Categoría</label>
+    <select name="category_id" id="category_id" required
+        class="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+        <option value="" disabled selected>Seleccionar categoría</option>
+        @foreach ($categories as $category)
+            <option value="{{ $category->id }}">{{ $category->name }}</option>
+        @endforeach
+    </select>
+</div>
 
         <div>
             <button type="submit"

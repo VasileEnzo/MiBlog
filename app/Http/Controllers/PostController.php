@@ -5,19 +5,30 @@ namespace App\Http\Controllers;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Category;
 
 class PostController extends Controller
 {
-    public function index()
-    {
-        $posts = Post::where('user_id', Auth::id())->get();
-        return view('category.index', compact('posts'));
+    public function index(Request $request)
+{
+    $query = Post::where('user_id', auth()->id());
+
+    // Si viene una categoría seleccionada, filtramos
+    if ($request->has('category_id') && $request->category_id !== null) {
+        $query->where('category_id', $request->category_id);
     }
 
+    $posts = $query->get();
+    $categories = Category::all(); // para el filtro en la vista
+
+    return view('category.index', compact('posts', 'categories'));
+}
+
     public function create()
-    {
-        return view('category.create');
-    }
+{
+    $categories = Category::all(); 
+    return view('category.create', compact('categories'));
+}
 
     public function store(Request $request)
     {

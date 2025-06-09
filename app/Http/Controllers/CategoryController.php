@@ -6,10 +6,18 @@ use Illuminate\Http\Request;
 use App\Models\Post;
 class CategoryController extends Controller
 {
-    public function getIndex()
+    public function getIndex(Request $request)
 {
-    $posts = Post::all(); 
-    return view('category.index', ['posts' => $posts]); 
+    $query = Post::with('category')->where('user_id', auth()->id());
+
+    if ($request->has('category_id') && $request->category_id != '') {
+        $query->where('category_id', $request->category_id);
+    }
+
+    $posts = $query->get();
+    $categories = Category::all();
+
+    return view('category.index', compact('posts', 'categories'));
 }
 public function update(Request $request, Post $post)
 {
@@ -63,11 +71,12 @@ public function postStore(Request $request)
 }
 public function store(Request $request)
 {
-    $request->validate([
+    $validated = $request->validate([
         'title' => 'required|string|max:255',
         'poster' => 'required|string|email',
         'content' => 'required|string',
-        'habilitated' => 'nullable'
+        'habilitated' => 'nullable',
+        'category_id' => 'required|exists:categories,id', 
     ]);
 
     Post::create([
@@ -76,8 +85,10 @@ public function store(Request $request)
         'content' => $request->input('content'),
         'habilitated' => $request->has('habilitated'),
         'user_id' => auth()->id(),
+        'category_id' => $request->input('category_id'), 
     ]);
 
     return redirect()->route('category.index');
 }
+
 }
